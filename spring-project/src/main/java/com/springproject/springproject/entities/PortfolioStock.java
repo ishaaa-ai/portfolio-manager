@@ -11,12 +11,8 @@ public class PortfolioStock implements Serializable {
     @Column(name="id")
     private int id;
 
-
-    @Column(name="stock_id")
-    private int stockId;
-
     @ManyToOne(cascade={CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name="stock_id", referencedColumnName="id")
+    @JoinColumn(name="stock_id")
     private Stock stock;
 
     @Column(name="volume")
@@ -26,9 +22,8 @@ public class PortfolioStock implements Serializable {
 
     }
 
-    public PortfolioStock(int id, int stockId, Stock stock, int volume) {
+    public PortfolioStock(int id, Stock stock, int volume) {
         this.id = id;
-        this.stockId = stockId;
         this.stock = stock;
         this.volume = volume;
     }
@@ -39,14 +34,6 @@ public class PortfolioStock implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getStockId() {
-        return stockId;
-    }
-
-    public void setStockId(int stockId) {
-        this.stockId = stockId;
     }
 
     public Stock getStock() {

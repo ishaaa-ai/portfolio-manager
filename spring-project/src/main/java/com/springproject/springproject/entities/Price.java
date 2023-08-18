@@ -12,18 +12,10 @@ public class Price implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
-    @Column(name="stock_id")
-    private int stockId;
 
     @ManyToOne(cascade={CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name="stock_id", referencedColumnName="id")
     private Stock stock;
-
-    //may want to come back to this
-//    @OneToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST})
-//    @JoinColumn(name="stock_id", referencedColumnName="id")
-//    private List<Price> prices = new ArrayList<>();
-
 
     @Column(name="open_price")
     private double openPrice;
@@ -36,9 +28,8 @@ public class Price implements Serializable {
     @Column(name="record_date")
     private String record_date;
 
-    public Price(int id, int stockId, Stock stock, double openPrice, double closePrice, int volume, String record_date) {
+    public Price(int id, Stock stock, double openPrice, double closePrice, int volume, String record_date) {
         this.id = id;
-        this.stockId = stockId;
         this.stock = stock;
         this.openPrice = openPrice;
         this.closePrice = closePrice;
@@ -56,14 +47,6 @@ public class Price implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getStockId() {
-        return stockId;
-    }
-
-    public void setStockId(int stockId) {
-        this.stockId = stockId;
     }
 
     public Stock getStock() {

@@ -2,6 +2,8 @@ package com.springproject.springproject.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="stock")
