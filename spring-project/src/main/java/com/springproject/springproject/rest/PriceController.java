@@ -28,7 +28,7 @@ public class PriceController {
         return service.getPriceByStock(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET, path="/dates")
     public List<Price> findStockPricesBetweenDates(@RequestParam("startDate") String startDate,
                                                    @RequestParam("endDate") String endDate) {
         logger.info("Get request for stock prices between " + startDate + " and " + endDate);
