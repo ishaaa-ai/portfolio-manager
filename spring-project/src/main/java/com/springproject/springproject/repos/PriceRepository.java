@@ -8,5 +8,5 @@ import java.util.Collection;
 public interface PriceRepository extends JpaRepository<Price, Integer> {
     Collection<Price> findAllByStockId(int stockId);
     Collection<Price> findAllByDate(String record_date);
-    Collection<Price> findAllByDateAndStockId(String record_date, int stockId);
+    Price findAllByDateAndStockId(String record_date, int stockId);
 }
