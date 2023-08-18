@@ -33,17 +33,17 @@ public class Price implements Serializable {
     @Column(name="volume")
     private int volume;
 
-    @Column(name="date")
-    private String date;
+    @Column(name="record_date")
+    private String record_date;
 
-    public Price(int id, int stockId, Stock stock, double openPrice, double closePrice, int volume, String date) {
+    public Price(int id, int stockId, Stock stock, double openPrice, double closePrice, int volume, String record_date) {
         this.id = id;
         this.stockId = stockId;
         this.stock = stock;
         this.openPrice = openPrice;
         this.closePrice = closePrice;
         this.volume = volume;
-        this.date = date;
+        this.record_date = record_date;
     }
 
     public Price(){
@@ -98,11 +98,11 @@ public class Price implements Serializable {
         this.volume = volume;
     }
 
-    public String getDate() {
-        return date;
+    public String getRecord_date() {
+        return record_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setRecord_date(String record_date) {
+        this.record_date = record_date;
     }
 }
