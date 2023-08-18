@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Collection;
 
 public interface PortfolioRepository extends JpaRepository<PortfolioStock, Integer> {
-    Collection<PortfolioStock> findByStockId(Integer stockId);
+    PortfolioStock findByStockId(Integer stockId);
 
-    void addByStockId(Integer stockId);
-
-    void deleteByStockId(Integer stockId);
+//    void addByStockId(Integer stockId);
+//
+//    void deleteByStockId(Integer stockId);
 }

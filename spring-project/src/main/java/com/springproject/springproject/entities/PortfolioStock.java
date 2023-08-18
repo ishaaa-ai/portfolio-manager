@@ -22,8 +22,7 @@ public class PortfolioStock implements Serializable {
 
     }
 
-    public PortfolioStock(int id, Stock stock, int volume) {
-        this.id = id;
+    public PortfolioStock(Stock stock, int volume) {
         this.stock = stock;
         this.volume = volume;
     }

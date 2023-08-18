@@ -2,8 +2,8 @@ package com.springproject.springproject.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name="price")
@@ -26,15 +26,14 @@ public class Price implements Serializable {
     private int volume;
 
     @Column(name="record_date")
-    private String record_date;
+    private LocalDateTime recordDate;
 
-    public Price(int id, Stock stock, double openPrice, double closePrice, int volume, String record_date) {
-        this.id = id;
+    public Price(Stock stock, double openPrice, double closePrice, int volume, LocalDateTime recordDate) {
         this.stock = stock;
         this.openPrice = openPrice;
         this.closePrice = closePrice;
         this.volume = volume;
-        this.record_date = record_date;
+        this.recordDate = recordDate;
     }
 
     public Price(){
@@ -81,11 +80,11 @@ public class Price implements Serializable {
         this.volume = volume;
     }
 
-    public String getRecord_date() {
-        return record_date;
+    public LocalDateTime getRecordDate() {
+        return recordDate;
     }
 
-    public void setRecord_date(String record_date) {
-        this.record_date = record_date;
+    public void setRecordDate(LocalDateTime recordDate) {
+        this.recordDate = recordDate;
     }
 }

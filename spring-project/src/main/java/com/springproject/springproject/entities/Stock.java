@@ -14,11 +14,10 @@ public class Stock implements Serializable {
     private int id;
     @Column(name="symbol")
     private String symbol;
-    @Column(name="name")
+    @Column(name="full_name")
     private String name;
 
-    public Stock(int id, String symbol, String name) {
-        this.id = id;
+    public Stock(String symbol, String name) {
         this.symbol = symbol;
         this.name = name;
     }

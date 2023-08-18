@@ -7,5 +7,7 @@ import java.util.List;
 public interface PriceService {
     List<Price> getPrices();
     List<Price> getPriceByStock(Integer id);
-    Price getPriceByStockAndDate(Integer id, String date);
+    // Price getPriceByStockAndDate(Integer id, String date);
+    List<Price> getPriceByDate(String startDate, String endDate);
+
 }

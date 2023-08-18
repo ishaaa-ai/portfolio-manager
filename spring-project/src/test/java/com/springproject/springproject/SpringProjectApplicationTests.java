@@ -2,24 +2,29 @@ package com.springproject.springproject;
 
 import com.springproject.springproject.entities.Price;
 import com.springproject.springproject.entities.Stock;
-import com.springproject.springproject.repos.PortfolioRepository;
 import com.springproject.springproject.repos.PriceRepository;
 import com.springproject.springproject.service.PriceService;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@DataJpaTest // use an in memory database
+@ContextConfiguration(classes= AppConfig.class)
+@TestPropertySource(locations = "classpath:application-test.properties")
 class SpringProjectApplicationTests {
 
 	@Autowired
@@ -35,17 +40,17 @@ class SpringProjectApplicationTests {
 
 	@BeforeEach
 	public void setupDatabaseEntryForReadOnlyTests() {
-		Stock stock = new Stock(1, "AMZN", "Amazon");
+		Stock stock = new Stock("AMZN", "Amazon");
 		Stock resultStock = manager.persist(stock);
 
-		Price price = new Price(1, resultStock, 1.0, 2.0, 10, "2021-01-04 00:00:00");
+		Price price = new Price(resultStock, 1.0, 2.0, 10, LocalDateTime.parse("2021-01-04 00:00:00"));
 		Price result = manager.persist(price);
 		priceId = result.getId();
 	}
 
 	@Test
 	public void canRetrievePriceByDate() {
-		Iterable<Price> prices = repo.findAllByDate("2021-01-04 00:00:00");
+		Iterable<Price> prices = repo.findAllByRecordDate("2021-01-04 00:00:00");
 		Stream<Price> stream = StreamSupport.stream(prices.spliterator(), false);
 		assertThat(stream.count(), CoreMatchers.equalTo(1L));
 	}

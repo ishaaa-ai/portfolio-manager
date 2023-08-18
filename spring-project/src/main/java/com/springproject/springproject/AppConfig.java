@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @Import(SwaggerConfig.class)
 @ComponentScan
-public class SpringProjectApplication {
+public class AppConfig {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringProjectApplication.class, args);
+		SpringApplication.run(AppConfig.class, args);
 	}
 
 }

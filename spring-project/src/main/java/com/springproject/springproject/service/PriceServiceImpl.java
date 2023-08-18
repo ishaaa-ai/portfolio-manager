@@ -7,23 +7,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
-public class PriceServiceImpl {
+public class PriceServiceImpl implements PriceService{
     @Autowired
     private PriceRepository repository;
 
     public List<Price> getPrices() {
         return repository.findAll();
     }
-    public Collection<Price> getPriceByStock(Integer id) {
-        return repository.findAllByStockId(id);
+    public List<Price> getPriceByStock(Integer id) {
+        return (List<Price>) repository.findAllByStockId(id);
     }
-    public Price getPriceByStockAndDate(Integer id, String date) {
-        return repository.findAllByDateAndStockId(date, id);
-    }
+//    public Price getPriceByStockAndDate(Integer id, String date) {
+//
+//    }
+    public List<Price> getPriceByDate(String startDate, String endDate) {
+        return (List<Price>) repository.findByRecordDateBetween(LocalDateTime.parse(startDate), LocalDateTime.parse(endDate));
+    };
+
 }
