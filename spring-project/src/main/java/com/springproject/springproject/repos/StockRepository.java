@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Collection;
 
 public interface StockRepository extends JpaRepository<Stock, Integer> {
-
+    Stock findBySymbol(String symbol);
 }

@@ -6,6 +6,7 @@ import com.springproject.springproject.service.PortfolioService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,10 +24,10 @@ public class PortfolioController {
         return (List<PortfolioStock>) service.getPortfolioStock();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path="/{id}")
-    public Integer findVolumeByStock(@PathVariable("id") Integer id) {
-        logger.info("Get request for stock prices with id " + id);
-        return service.getPortfolioStockByStockId(id).getVolume();
+    @RequestMapping(method = RequestMethod.GET, path="/{symbol}")
+    public ResponseEntity<PortfolioStock> findVolumeByStock(@PathVariable("symbol") String symbol) {
+        logger.info("Get request for stock prices with symbol " + symbol);
+        return service.getPortfolioStockByTicker(symbol);
     }
 
     @RequestMapping(method = RequestMethod.POST, path="/{id}")
@@ -34,17 +35,30 @@ public class PortfolioController {
         logger.info("Post request");
         service.addByStockId(id, volume);
     }
+
+    @RequestMapping(method = RequestMethod.POST, path="/ticker/{symbol}")
+    public void addStockByTicker(@PathVariable("symbol") String symbol, @RequestParam("volume") Integer volume) {
+        logger.info("Post request");
+        service.addByStockTicker(symbol, volume);
+    }
 //
-//    @RequestMapping(method = RequestMethod.PUT, consumes = "application/json", path="/{id}")
-//    public void updateCD(@RequestBody CompactDisc disc, @PathVariable("id") Integer id) {
-//        logger.info("Put request for CD with id " + id);
-//        service.updateInCatalog(disc, id);
-//    }
+    @RequestMapping(method = RequestMethod.PUT, path="/ticker/{symbol}")
+    public ResponseEntity<PortfolioStock> updateStockByTicker(@PathVariable("symbol") String symbol,
+                                                              @RequestParam("volume") Integer volume) {
+        logger.info("Put request for stock with ticker " + symbol);
+        return service.updateByStockTicker(symbol, volume);
+    }
 //
     @RequestMapping(method = RequestMethod.DELETE, path="/{id}")
     public void deleteStock(@PathVariable("id") Integer id) {
         logger.info("Delete request for stock with id " + id);
         service.deleteByStockId(id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, path="/ticker/{symbol}")
+    public void deleteStockByTicker(@PathVariable("symbol") String symbol) {
+        logger.info("Delete request for stock with ticker " + symbol);
+        service.deleteByStockTicker(symbol);
     }
 
 }

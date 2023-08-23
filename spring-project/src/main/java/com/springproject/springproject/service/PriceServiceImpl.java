@@ -24,9 +24,13 @@ public class PriceServiceImpl implements PriceService{
     public List<Price> getPriceByStock(Integer id) {
         return (List<Price>) repository.findAllByStockId(id);
     }
-//    public Price getPriceByStockAndDate(Integer id, String date) {
-//
-//    }
+
+    public List<Price> getPriceByTicker(String symbol) { return (List<Price>) repository.findAllBySymbol(symbol); }
+
+    public List<Price> getPriceByTickerAndDate(String symbol, String startDate, String endDate) {
+        return (List<Price>) repository.findByRecordDateAndSymbol(symbol,
+                LocalDateTime.parse(startDate), LocalDateTime.parse(endDate));
+    }
     public List<Price> getPriceByDate(String startDate, String endDate) {
         return (List<Price>) repository.findByRecordDateBetween(LocalDateTime.parse(startDate), LocalDateTime.parse(endDate));
     };

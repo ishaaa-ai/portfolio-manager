@@ -28,11 +28,25 @@ public class PriceController {
         return service.getPriceByStock(id);
     }
 
+    @RequestMapping(method = RequestMethod.GET, path="/ticker/{symbol}")
+    public List<Price> findStockPriceBySymbol(@PathVariable("symbol") String symbol) {
+        logger.info("Get request for stock prices with symbol " + symbol);
+        return service.getPriceByTicker(symbol);
+    }
+
     @RequestMapping(method = RequestMethod.GET, path="/dates")
     public List<Price> findStockPricesBetweenDates(@RequestParam("startDate") String startDate,
                                                    @RequestParam("endDate") String endDate) {
         logger.info("Get request for stock prices between " + startDate + " and " + endDate);
         return service.getPriceByDate(startDate, endDate);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path="/ticker/{symbol}/dates")
+    public List<Price> findStockPricesByTickerBetweenDates(@PathVariable("symbol") String symbol,
+                                                    @RequestParam("startDate") String startDate,
+                                                   @RequestParam("endDate") String endDate) {
+        logger.info("Get request for " + symbol + " stock prices between " + startDate + " and " + endDate);
+        return service.getPriceByTickerAndDate(symbol, startDate, endDate);
     }
 
 //    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/spring-project/CompactDiscDaoWithRestAndData.iml" filepath="$PROJECT_DIR$/spring-project/CompactDiscDaoWithRestAndData.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-project/PortfolioManager.iml" filepath="$PROJECT_DIR$/spring-project/PortfolioManager.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/portfolio-manager.iml" filepath="$PROJECT_DIR$/.idea/portfolio-manager.iml" />
     </modules>
   </component>
