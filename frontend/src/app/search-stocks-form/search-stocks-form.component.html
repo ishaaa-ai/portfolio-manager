@@ -1,0 +1,19 @@
+<div>
+    <form #myForm='ngForm'>
+        Stock:
+        <select [(ngModel)]='stock' id="selectedStock" name="selectedStock" type="text" #selectedStock required>
+            <option disabled selected value=""> -- select a stock -- </option>
+            <option *ngFor="let item of data">{{item.symbol}}</option>
+        </select>
+        Action:
+        <select [(ngModel)]='action' id="selectedAction" name="selectedAction"  type="text" #selectedAction required>
+            <option disabled selected value=""> -- select an action -- </option>
+            <option *ngFor="let a of actions">{{a}}</option>
+        </select>
+        Quantity:
+        <input [(ngModel)]='quantity' type="number" id="selectedQuantity" name="selectedQuantity" #selectedQuantity required min="1"/>
+        <app-search-stocks (STOCK_EVENT)='handleStockEvent($event)' [selectedStock]='stock' [selectedAction]="action" [selectedQuantity]="quantity" [disabled]="!!myForm.invalid"></app-search-stocks>
+    
+    </form>
+</div>
+<!-- buttons for buy sell, capture the selected option, retrieve data from portofolio table about selected option -->
