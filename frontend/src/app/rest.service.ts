@@ -8,13 +8,13 @@ import { Observable } from 'rxjs';
 })
 export class RestService {
 
-  stocksUrl = 'http://localhost:8080/api/stocks'
+  portfoliosUrl = 'http://localhost:8080/api/portfolio'
 
   constructor(private http:HttpClient) { }
 
-  getAllStocks() {
+  getAllPortfolios() {
     try {
-      return this.http.get(this.stocksUrl)
+      return this.http.get(this.portfoliosUrl)
     }
     catch (err) {
       return new Observable()

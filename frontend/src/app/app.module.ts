@@ -10,6 +10,7 @@ import { HeadComponent } from './head/head.component';
 import { FootComponent } from './foot/foot.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
     FootComponent,
     AddNewDataComponent,
     NetWorthComponent,
-    LiveChartingComponent
+    LiveChartingComponent,
+    PortfolioComponent
   ],
   imports: [
     BrowserModule,
