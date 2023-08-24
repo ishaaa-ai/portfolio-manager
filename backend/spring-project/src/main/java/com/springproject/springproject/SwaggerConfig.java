@@ -25,10 +25,9 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Album REST API with Swagger")
-                .description("This API allows you to interact with albums. It is a CRUD API")
+                .title("Portfolio Manager REST API with Swagger")
+                .description("This is a CRUD API that allows access to stock price and portfolio information.")
                 //.termsOfServiceUrl("http://www.conygre.com")
-                .contact(new Contact("Nick Todd", "http://www.conygre.com", "nick.todd@conygre.com"))
                 //.license("Apache License Version 2.0")
                 //.licenseUrl("https://github.com/IBM-Bluemix/news-aggregator/blob/master/LICENSE")
                 //.version("2.0")

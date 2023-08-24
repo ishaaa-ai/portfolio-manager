@@ -1,8 +1,10 @@
 package com.springproject.springproject.service;
 
 import com.springproject.springproject.entities.PortfolioStock;
+import com.springproject.springproject.entities.Price;
 import com.springproject.springproject.entities.Stock;
 import com.springproject.springproject.repos.PortfolioRepository;
+import com.springproject.springproject.repos.PriceRepository;
 import com.springproject.springproject.repos.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +25,9 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     @Autowired
     private StockRepository stockRepository;
+
+    @Autowired
+    private PriceRepository priceRepository;
 
     public ResponseEntity<PortfolioStock> getPortfolioStockByTicker(String symbol) {
         Stock stock = stockRepository.findBySymbol(symbol);
@@ -34,6 +41,18 @@ public class PortfolioServiceImpl implements PortfolioService {
 
     public Collection<PortfolioStock> getPortfolioStock() {
         return repository.findAll();
+    }
+
+    public Double getNetWorth(String date) {
+        List<PortfolioStock> stocks = repository.findAll();
+        double total = 0.0;
+        LocalDateTime localDate = LocalDateTime.parse(date);
+        for (PortfolioStock s:stocks) {
+            Integer volume = s.getVolume();
+            List<Price> prices = (List<Price>) priceRepository.findByRecordDateAndSymbol(s.getStock().getSymbol(), localDate, localDate);
+            total += (prices.get(0).getClosePrice() * volume);
+        }
+        return total;
     }
 
     public void addByStockId(Integer id, Integer volume) {

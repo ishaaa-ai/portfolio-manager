@@ -35,4 +35,12 @@ public class PriceServiceImpl implements PriceService{
         return (List<Price>) repository.findByRecordDateBetween(LocalDateTime.parse(startDate), LocalDateTime.parse(endDate));
     };
 
+    public Double getPercentChange(String symbol, String startDate, String endDate) {
+        List<Price> prices = this.getPriceByTickerAndDate(symbol, startDate, endDate);
+        double original = prices.get(0).getClosePrice();
+        double latest = prices.get(prices.size() - 1).getClosePrice();
+        double change = (latest - original) / original * 100;
+        return Math.round(change * 100.0) / 100.0;
+    }
+
 }

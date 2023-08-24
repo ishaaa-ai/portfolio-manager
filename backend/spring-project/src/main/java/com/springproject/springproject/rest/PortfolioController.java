@@ -19,16 +19,22 @@ public class PortfolioController {
     @Autowired
     private PortfolioService service;
     private static Logger logger = LogManager.getLogger(PriceController.class);
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public List<PortfolioStock> findAll() {
         logger.info("Get request for findAll");
         return (List<PortfolioStock>) service.getPortfolioStock();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path="/{symbol}")
+    @GetMapping(path = "/{symbol}")
     public ResponseEntity<PortfolioStock> findVolumeByStock(@PathVariable("symbol") String symbol) {
         logger.info("Get request for stock prices with symbol " + symbol);
         return service.getPortfolioStockByTicker(symbol);
+    }
+
+    @GetMapping(path = "/total")
+    public Double findNetWorth(@RequestParam(value="date", defaultValue = "2021-01-07T00:00:00") String date) {
+        logger.info("Get request for total net worth");
+        return service.getNetWorth(date);
     }
 
     @RequestMapping(method = RequestMethod.POST, path="/{id}")
