@@ -11,11 +11,15 @@ export class AppComponent {
   // title = 'portfolio-frontend';
   // stocks = [];
   portfolio = [];
+  price = [];
   constructor(private rest:RestService){}
 
   ngOnInit() {
     this.rest.getAllPortfolios()
       .subscribe( this.handleAllPortfolios() )
+
+    this.rest.getAllPrices()
+    .subscribe( this.handleAllPrices() )
   }
 
   handleAllPortfolios(){
@@ -23,8 +27,14 @@ export class AppComponent {
       this.portfolio = received
     }
   }
+
+  handleAllPrices(){
+    return (received:any) => {
+      this.price = received
+    }
+  }
   // these are the propeties of this class
-  title = 'portfolio-manager';
+  // title = 'portfolio-manager';
   // here is a portfolio array
   //get from our api?
   // methods of this class

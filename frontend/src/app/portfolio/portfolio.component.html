@@ -2,25 +2,25 @@
     <hr>
     <table >
         <thead>
-            <th>Portfolio_id</th> |
-            <th>Stock_id</th> |
-            <th>Symbol</th> |
-            <th>Name</th> |
-            <th>openPrice</th> |
-            <th>closePrice</th> |
-            <th>Volume</th> |
-            <th>Date</th>  |                  
+            <th>Portfolio_id</th>
+            <th>Stock_id</th> 
+            <th>Symbol</th> 
+            <th>Name</th> 
+            <th>openPrice</th> 
+            <th>closePrice</th> 
+            <th>Volume</th> 
+            <th>Date</th>               
         </thead>
-        <tbody *ngFor="let item of portfolio">
+        <tbody *ngFor="let item of portfolio; let p of price" >
             <tr>
                 <td>{{item['id']}}</td>
                 <td>{{item['stock']['id']}}</td>
                 <td>{{item['stock']['symbol']}}</td>
                 <td>{{item['stock']['name']}}</td>
-                <td>{{item['openPrice']}}</td>
-                <td>{{item['closePrice']}}</td>
-                <td>{{item['volume']}}</td>
-                <td>{{item['recordDate']}}</td>
+                <td>{{p['openPrice'] | number:'1.2-2' | currency:'USD'}}</td>
+                <td>{{p['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
+                <td>{{p['volume']}}</td>
+                <td>{{p['recordDate']}}</td>
             </tr>             
         </tbody>   
     </table>
