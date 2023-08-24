@@ -19,8 +19,8 @@
                 <td>{{item['stock']['name']}}</td>
                 <td>{{p['openPrice'] | number:'1.2-2' | currency:'USD'}}</td>
                 <td>{{p['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
-                <td>{{p['volume']}}</td>
-                <td>{{p['recordDate']}}</td>
+                <td>{{p['volume'] | number:'1.0-0'}}</td>
+                <td>{{p['recordDate'] | slice:0:10}}</td>
             </tr>             
         </tbody>   
     </table>
