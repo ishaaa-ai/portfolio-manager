@@ -37,8 +37,7 @@ export class AppComponent {
   constructor(private rest:RestService){}
   startDate='2021-04-01'
   ngOnInit() {
-    this.rest.getAllPortfolios()
-      .subscribe( this.handleAllPortfolios() )
+    this.getPortfolio()
 
     this.rest.getAllPrices()
     .subscribe( this.handleAllPrices() )
@@ -51,6 +50,16 @@ export class AppComponent {
     return (received:any) => {
       this.stocks = received
     }
+  }
+
+  handleStockUpdate(e:any) {
+    console.log(e)
+    this.getPortfolio();
+  }
+
+  getPortfolio(){
+    this.rest.getAllPortfolios()
+    .subscribe( this.handleAllPortfolios() )
   }
 
   handleAllPortfolios(){
