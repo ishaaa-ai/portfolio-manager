@@ -104,6 +104,13 @@ export class RestService {
     );
   }
 
+  getStockPricesByTickerBetweenDates(ticker: string, startDate: string, endDate: string) {
+    const getStockPricesByTickerBetweenDatesUrl = `http://localhost:8080/api/stock/ticker/${ticker}/dates?startDate=${startDate}T00%3A00%3A00&endDate=${endDate}T00%3A00%3A00`
+    return this.http.get(getStockPricesByTickerBetweenDatesUrl).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   // method to handle any http errors
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
