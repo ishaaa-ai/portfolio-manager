@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RestService } from '../rest.service';
 
 @Component({
   selector: 'app-portfolio',
@@ -6,7 +7,16 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./portfolio.component.css']
 })
 export class PortfolioComponent {
+  constructor(private rest:RestService){}
   @Input() portfolio:any
   @Input() price:any
   @Input() onePrice:any
+  @Input() startDate:any
+  @Output() onClick = new EventEmitter();
+
+  totalPrice:any
+
+  getRowSum(volume:any, price:any) {
+    this.totalPrice = volume * price;
+}
 }

@@ -1,12 +1,15 @@
 <aside>
     <hr>
+    <label for="portfolio-date">Date: </label>
+    <input type="date" id="portfolio-date" name="portfolio-date" [value]=startDate min="2021-01-01" max="2021-12-31" [(ngModel)]="startDate" />
+    <button (click)="onClick.emit(startDate)">View</button>
     <table >
         <thead>
             <th>Symbol</th> 
             <th>Name</th> 
             <th>closePrice</th> 
             <th>Volume</th> 
-            <!-- <th>Owned</th>                -->
+            <th>Total Worth</th> 
         </thead>
         <tbody *ngFor="let item of portfolio" >
             <tr>
@@ -14,7 +17,7 @@
                 <td>{{item['stock']['name']}}</td>
                 <td>{{onePrice[0]['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
                 <td>{{item['volume'] | number:'1.0-0'}}</td>
-                <!-- <td><input type="text" name="Owned" [ngModel]="getRowSum(inVoiceItems2[i].quantity, inVoiceItems2[i].price)">{{item['volume'] | number:'1.0-0'}}</td> -->
+                <td>{{getRowSum(item['volume'], onePrice[0]['closePrice'])}}{{totalPrice| currency:'USD'}}</td>
             </tr>             
         </tbody>   
     </table>

@@ -15,7 +15,7 @@
   <!-- <app-my-stocks></app-my-stocks> -->
   <!-- instantiate the portfolio component-->
   <!-- portfolio in app component bind to portfolio in app-portfolio ie partent to child-->
-  <app-portfolio [portfolio]=portfolio [onePrice]="onePrice"></app-portfolio>
+  <app-portfolio [portfolio]=portfolio [onePrice]="onePrice" [startDate]="startDate" (onClick)="updatePrice($event)"></app-portfolio>
   <hr>
 </article>
 

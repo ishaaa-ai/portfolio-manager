@@ -12,24 +12,22 @@ export class AppComponent {
   // stocks = [];
   portfolio = [];
   price = [];
-  onePrice = []
+  onePrice = [{'closePrice':0}]
   constructor(private rest:RestService){}
   whichStock='AMZN'
   startDate='2021-04-01'
-  endDate='2021-04-01'
   ngOnInit() {
     this.rest.getAllPortfolios()
       .subscribe( this.handleAllPortfolios() )
 
     this.rest.getAllPrices()
     .subscribe( this.handleAllPrices() )
-
-    this.getOne()
   }
 
   handleAllPortfolios(){
     return (received:any) => {
       this.portfolio = received
+      this.getOne()
     }
   }
 
@@ -47,13 +45,13 @@ export class AppComponent {
 
   getOne(){
     // we call the typicode.getOnePhoto method
-    this.rest.getOnePrice(this.whichStock, this.startDate, this.endDate)
+    this.rest.getOnePrice(this.whichStock, this.startDate, this.startDate)
     .subscribe(this.showOnePrice())
   }
 
-//   getRowSum(qty, price) {
-//     const sum = qty * price;
-//     return isNaN(sum) ? '' : sum;
-// }
+  updatePrice(e:any){
+    this.startDate = e;
+    this.getOne();
+  }
 
 }
