@@ -42,8 +42,8 @@ export class AppComponent {
 
     this.getNetWorth()
 
-    this.rest.getAllPrices()
-    .subscribe( this.handleAllPrices() )
+    // this.rest.getAllPrices()
+    // .subscribe( this.handleAllPrices() )
 
     this.rest.getAllStocks()
       .subscribe( this.handleAllStocks() )
