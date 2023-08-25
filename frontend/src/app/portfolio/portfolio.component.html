@@ -2,6 +2,25 @@
     <hr>
     <table >
         <thead>
+            <th>Symbol</th> 
+            <th>Name</th> 
+            <th>closePrice</th> 
+            <th>Volume</th> 
+            <!-- <th>Owned</th>                -->
+        </thead>
+        <tbody *ngFor="let item of portfolio" >
+            <tr>
+                <td>{{item['stock']['symbol']}}</td>
+                <td>{{item['stock']['name']}}</td>
+                <td>{{onePrice[0]['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
+                <td>{{item['volume'] | number:'1.0-0'}}</td>
+                <!-- <td><input type="text" name="Owned" [ngModel]="getRowSum(inVoiceItems2[i].quantity, inVoiceItems2[i].price)">{{item['volume'] | number:'1.0-0'}}</td> -->
+            </tr>             
+        </tbody>   
+    </table>
+    <hr>
+    <!-- <table >
+        <thead>
             <th>Portfolio_id</th>
             <th>Stock_id</th> 
             <th>Symbol</th> 
@@ -14,15 +33,17 @@
         <tbody *ngFor="let item of portfolio; let p of price" >
             <tr>
                 <td>{{item['id']}}</td>
-                <td>{{item['stock']['id']}}</td>
+                <td>{{item['stock']['id']}}
+                </td>
                 <td>{{item['stock']['symbol']}}</td>
                 <td>{{item['stock']['name']}}</td>
                 <td>{{p['openPrice'] | number:'1.2-2' | currency:'USD'}}</td>
                 <td>{{p['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
                 <td>{{p['volume'] | number:'1.0-0'}}</td>
                 <td>{{p['recordDate'] | slice:0:10}}</td>
+                
             </tr>             
         </tbody>   
-    </table>
+    </table> -->
 </aside>
     

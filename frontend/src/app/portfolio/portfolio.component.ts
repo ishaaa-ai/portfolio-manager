@@ -8,4 +8,5 @@ import { Component, Input } from '@angular/core';
 export class PortfolioComponent {
   @Input() portfolio:any
   @Input() price:any
+  @Input() onePrice:any
 }
