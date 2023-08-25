@@ -12,6 +12,8 @@ public interface PortfolioService {
 
     ResponseEntity<PortfolioStock> getPortfolioStockByTicker(String symbol);
     Collection<PortfolioStock> getPortfolioStock();
+
+    Double getNetWorth(String date);
     void addByStockId(Integer id, Integer volume);
 
     void addByStockTicker(String symbol, Integer volume);

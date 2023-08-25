@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 
-import { AddNewDataComponent } from './add-new-data/add-new-data.component';
 import { NetWorthComponent } from './net-worth/net-worth.component';
 import { LiveChartingComponent } from './live-charting/live-charting.component';
 import { HeadComponent } from './head/head.component';
@@ -11,6 +10,8 @@ import { FootComponent } from './foot/foot.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { PortfolioComponent } from './portfolio/portfolio.component';
+import { SearchStocksFormComponent } from './search-stocks-form/search-stocks-form.component';
+import { SearchStocksComponent } from './search-stocks/search-stocks.component';
 
 
 @NgModule({
@@ -18,10 +19,11 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
     AppComponent,
     HeadComponent,
     FootComponent,
-    AddNewDataComponent,
     NetWorthComponent,
     LiveChartingComponent,
-    PortfolioComponent
+    PortfolioComponent,
+    SearchStocksFormComponent,
+    SearchStocksComponent
   ],
   imports: [
     BrowserModule,

@@ -9,8 +9,8 @@ import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  // title = 'portfolio-frontend';
-  // stocks = [];
+  title = 'portfolio-frontend';
+  stocks = [];
   portfolio:any[] = [];
   //[
 //   {
@@ -42,6 +42,15 @@ export class AppComponent {
 
     this.rest.getAllPrices()
     .subscribe( this.handleAllPrices() )
+
+    this.rest.getAllStocks()
+      .subscribe( this.handleAllStocks() )
+  }
+
+  handleAllStocks(){
+    return (received:any) => {
+      this.stocks = received
+    }
   }
 
   handleAllPortfolios(){

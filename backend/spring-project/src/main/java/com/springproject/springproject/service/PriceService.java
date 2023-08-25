@@ -12,4 +12,6 @@ public interface PriceService {
     List<Price> getPriceByTickerAndDate(String symbol, String startDate, String endDate);
     List<Price> getPriceByDate(String startDate, String endDate);
 
+    Double getPercentChange(String symbol, String startDate, String endDate);
+
 }

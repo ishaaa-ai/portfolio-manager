@@ -1,22 +1,28 @@
-<!-- <app-head></app-head> -->
-<article>
-  <h2>Welcome to Portfolio Manager</h2>
-  
-  <!-- if pass data you must use $event-->
-  <!-- <app-child (evtAgree)="handleChildAgree($event)"></app-child> -->
-  <!-- banana in a box -->
-  <!-- [()] two-way binding -->
-  <!-- <input [(ngModel)]="catName" placeholder="cat name"/> -->
-  <!-- <br>
-  <p>Tha cat is called {{catName}}</p> -->
-
-  <!-- () will bind an event FROM this template TO the component class -->
-  <!-- ng generate component my-stocks -->
-  <!-- <app-my-stocks></app-my-stocks> -->
-  <!-- instantiate the portfolio component-->
-  <!-- portfolio in app component bind to portfolio in app-portfolio ie partent to child-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Manager</title>
+</head>
+<body>
+  <app-head></app-head>
+  <app-net-worth></app-net-worth>
+  <app-search-stocks-form [data]="stocks"></app-search-stocks-form>
   <app-portfolio [portfolio]=portfolio [onePrice]="onePrice" [startDate]="startDate" (onClick)="updatePrice($event)"></app-portfolio>
-  <hr>
-</article>
-
-<app-foot></app-foot>
+  <app-live-charting></app-live-charting>
+  <app-foot></app-foot>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Welcome</h1>
+      <h2>Angular & Bootstrap Demo</h2>
+    </div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">Status</div>
+      <div class="panel-body">
+        <h3>Portfolio Manager</h3>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
