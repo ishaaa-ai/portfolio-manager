@@ -11,6 +11,7 @@ export class RestService {
   portfoliosUrl = 'http://localhost:8080/api/portfolio'
   pricesUrl = 'http://localhost:8080/api/stock'
   pricePerDateUrl = 'http://localhost:8080/api/stock/ticker'
+  netWorthUrl = 'http://localhost:8080/api/portfolio/total'
 
   stocksUrl = 'http://localhost:8080/api/stocks'
 
@@ -50,6 +51,17 @@ export class RestService {
       console.log(oneStockUrl)
       return this.http.get(oneStockUrl)
       
+    }
+    catch(err){
+      return new Observable()
+    }
+  }
+
+  getNetWorth(startDate='2021-04-01') {
+    const getNetWorthUrl = `${this.netWorthUrl}?date=${startDate}T00%3A00%3A00`;
+    try{
+      console.log(getNetWorthUrl)
+      return this.http.get(getNetWorthUrl)
     }
     catch(err){
       return new Observable()

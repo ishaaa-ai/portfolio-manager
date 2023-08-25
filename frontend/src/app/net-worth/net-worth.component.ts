@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-net-worth',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./net-worth.component.css']
 })
 export class NetWorthComponent {
+  @Input() netWorth=0
 
 }

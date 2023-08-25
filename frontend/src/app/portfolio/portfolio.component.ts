@@ -12,6 +12,7 @@ export class PortfolioComponent {
   @Input() price:any
   @Input() onePrice:any
   @Input() startDate:any
+  @Input() netWorth:any
   @Output() onClick = new EventEmitter();
 
   totalPrice:any

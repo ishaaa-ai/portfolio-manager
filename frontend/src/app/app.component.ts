@@ -36,8 +36,11 @@ export class AppComponent {
   onePrice = [{'closePrice':0}]
   constructor(private rest:RestService){}
   startDate='2021-04-01'
+  netWorth=0
   ngOnInit() {
     this.getPortfolio()
+
+    this.getNetWorth()
 
     this.rest.getAllPrices()
     .subscribe( this.handleAllPrices() )
@@ -55,11 +58,22 @@ export class AppComponent {
   handleStockUpdate(e:any) {
     console.log(e)
     this.getPortfolio();
+    this.getNetWorth();
   }
 
   getPortfolio(){
     this.rest.getAllPortfolios()
     .subscribe( this.handleAllPortfolios() )
+  }
+
+  handleNetWorth(){
+    return (received:any) => {
+      this.netWorth = received
+    }
+  }
+
+  getNetWorth() {
+    this.rest.getNetWorth(this.startDate).subscribe(this.handleNetWorth())
   }
 
   handleAllPortfolios(){
@@ -99,6 +113,7 @@ export class AppComponent {
   updatePrice(e:any){
     this.startDate = e;
     this.getPrices();
+    this.getNetWorth();
   }
 
 }

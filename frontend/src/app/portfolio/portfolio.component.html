@@ -1,27 +1,32 @@
-<aside>
-    <hr>
-    <label for="portfolio-date">Date: </label>
-    <input type="date" id="portfolio-date" name="portfolio-date" [value]=startDate min="2021-01-01" max="2021-12-31" [(ngModel)]="startDate" />
-    <button (click)="onClick.emit(startDate)">View</button>
-    <table >
-        <thead>
-            <th>Symbol</th> 
-            <th>Name</th> 
-            <th>closePrice</th> 
-            <th>Volume</th> 
-            <th>Total Worth</th> 
-        </thead>
-        <tbody *ngFor="let item of portfolio" >
-            <tr>
-                <td>{{item['stock']['symbol']}}</td>
-                <td>{{item['stock']['name']}}</td>
-                <td>{{item['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
-                <td>{{item['volume'] | number:'1.0-0'}}</td>
-                <td>{{getRowSum(item['volume'], item['closePrice'])}}{{totalPrice| currency:'USD'}}</td>
-            </tr>             
-        </tbody>   
-    </table>
-    <hr>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Portfolio</div>
+        <div class="panel-body">
+            <div class="input-group">
+            <label for="portfolio-date">Date: </label>
+            <input type="date" id="portfolio-date" name="portfolio-date" [value]=startDate min="2021-01-01" max="2021-12-31" [(ngModel)]="startDate" />
+                <button class="btn btn-default" type="button" (click)="onClick.emit(startDate)">View</button>
+            </div>
+        </div>
+        <app-net-worth [netWorth]="netWorth"></app-net-worth>
+        <table class="table">
+            <thead>
+                <th>Symbol</th> 
+                <th>Name</th> 
+                <th>closePrice</th> 
+                <th>Volume</th> 
+                <th>Total Worth</th> 
+            </thead>
+            <tbody *ngFor="let item of portfolio" >
+                <tr>
+                    <td>{{item['stock']['symbol']}}</td>
+                    <td>{{item['stock']['name']}}</td>
+                    <td>{{item['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
+                    <td>{{item['volume'] | number:'1.0-0'}}</td>
+                    <td>{{getRowSum(item['volume'], item['closePrice'])}}{{totalPrice| currency:'USD'}}</td>
+                </tr>             
+            </tbody>   
+        </table>
     <!-- <table >
         <thead>
             <th>Portfolio_id</th>
@@ -48,5 +53,5 @@
             </tr>             
         </tbody>   
     </table> -->
-</aside>
-    
+    </div>
+</div>
