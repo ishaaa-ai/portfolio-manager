@@ -35,7 +35,6 @@ export class AppComponent {
   price = [];
   onePrice = [{'closePrice':0}]
   constructor(private rest:RestService){}
-  whichStock='AMZN'
   startDate='2021-04-01'
   ngOnInit() {
     this.rest.getAllPortfolios()
@@ -55,7 +54,7 @@ export class AppComponent {
   getPrices(){
     for (let i = 0; i < this.portfolio.length; i++) {
       console.log(`i: ${i}`)
-      this.getOne(this.portfolio[i]['symbol'], i);
+      this.getOne(this.portfolio[i]['stock']['symbol'], i);
     }
   }
 
