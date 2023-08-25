@@ -42,28 +42,30 @@ export class AppComponent {
 
     this.getNetWorth()
 
-    // this.rest.getAllPrices()
-    // .subscribe( this.handleAllPrices() )
-
     this.rest.getAllStocks()
       .subscribe( this.handleAllStocks() )
   }
-
+  // load valueS to stocks object
   handleAllStocks(){
     return (received:any) => {
       this.stocks = received
     }
   }
 
+  // made portfolio object update after buying selling stocks
   handleStockUpdate(e:any) {
     console.log(e)
     this.getPortfolio();
     this.getNetWorth();
   }
+  
 
-  getPortfolio(){
-    this.rest.getAllPortfolios()
-    .subscribe( this.handleAllPortfolios() )
+  handleAllPortfolios(){
+    return (received:any) => {
+      this.portfolio = received
+      this.getPrices();
+      this.getAllPriceChanges();
+    }
   }
 
   handleNetWorth(){
@@ -71,6 +73,49 @@ export class AppComponent {
       this.netWorth = received
     }
   }
+
+  handleAllPrices(){
+    return (received:any) => {
+      this.price = received
+    }
+  }
+
+  // loop through portfolio array and for each object
+  // get one json object according to dates
+  // set profolio price change
+  getPrices(){
+    for (let i = 0; i < this.portfolio.length; i++) {
+      console.log(`i: ${i}`)
+      this.handleShowClosePrice(this.portfolio[i]['stock']['symbol'], i);
+    }
+  }
+
+  // enable back end get one price 
+  // and invoke function to the portfolio
+  handleShowClosePrice(ticker:any, i:any){
+    this.rest.getRestOnePrice(ticker, this.startDate, this.startDate)
+    .subscribe(this.setProfolioClosePrice(i))
+  }
+
+  setProfolioClosePrice(i:any){
+    return (received:any)=>{
+      this.portfolio[i]['closePrice'] = received[0]['closePrice'];
+    }
+  }
+
+  getAllPriceChanges(){
+    for (let i = 0; i < this.portfolio.length; i++) {
+      console.log(`i: ${i}`)
+      this.getOnePriceChange(this.portfolio[i]['stock']['symbol'], i);
+    }
+  }
+
+  getPortfolio(){
+    this.rest.getRestAllPortfolios()
+    .subscribe( this.handleAllPortfolios() )
+  }
+
+  
 
   showOnePriceChange(i:any){
     return (received:any)=>{
@@ -84,55 +129,22 @@ export class AppComponent {
   getOnePriceChange(ticker:any, i:any){
     // we call the typicode.getOnePhoto method
     console.log(ticker)
-    this.rest.getPriceChange(ticker, this.startDate, '2021-04-06')
+    this.rest.getRestPriceChange(ticker, this.startDate, '2021-04-06')
     .subscribe(this.showOnePriceChange(i))
   }
 
-  getAllPriceChanges(){
-    for (let i = 0; i < this.portfolio.length; i++) {
-      console.log(`i: ${i}`)
-      this.getOnePriceChange(this.portfolio[i]['stock']['symbol'], i);
-    }
-  }
+  
 
   getNetWorth() {
-    this.rest.getNetWorth(this.startDate).subscribe(this.handleNetWorth())
+    this.rest.getRestNetWorth(this.startDate).subscribe(this.handleNetWorth())
   }
 
-  handleAllPortfolios(){
-    return (received:any) => {
-      this.portfolio = received
-      this.getPrices();
-      this.getAllPriceChanges();
-    }
-  }
+  
 
-  getPrices(){
-    for (let i = 0; i < this.portfolio.length; i++) {
-      console.log(`i: ${i}`)
-      this.getOne(this.portfolio[i]['stock']['symbol'], i);
-    }
-  }
+  
+  
 
-  handleAllPrices(){
-    return (received:any) => {
-      this.price = received
-    }
-  }
-  showOnePrice(i:any){
-    return (received:any)=>{
-      console.log(received)
-      this.portfolio[i]['closePrice'] = received[0]['closePrice'];
-      console.log(this.portfolio)
-    }
-  }
-
-  getOne(ticker:any, i:any){
-    // we call the typicode.getOnePhoto method
-    console.log(ticker)
-    this.rest.getOnePrice(ticker, this.startDate, this.startDate)
-    .subscribe(this.showOnePrice(i))
-  }
+  
 
   updatePrice(e:any){
     this.startDate = e;
