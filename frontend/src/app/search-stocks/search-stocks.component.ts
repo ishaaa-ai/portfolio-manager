@@ -39,6 +39,7 @@ export class SearchStocksComponent implements OnInit {
         if (new_volume <= 0) {
           this.restService.deleteStockFromPortfolio(this.selectedStock).subscribe(() => {
             console.log("Deleted stock from portfolio")
+            alert("Do you want to sell all your stock?");
             this.outputMessage = "Deleted stock from portfolio"
             this.STOCK_EVENT.emit(this.outputMessage)
           })
