@@ -6,12 +6,10 @@
   <title>Portfolio Manager</title>
 </head>
 <body>
-  <app-head></app-head>
   <app-net-worth></app-net-worth>
   <app-search-stocks-form [data]="stocks"></app-search-stocks-form>
   <app-portfolio [portfolio]=portfolio [onePrice]="onePrice" [startDate]="startDate" (onClick)="updatePrice($event)"></app-portfolio>
   <app-live-charting></app-live-charting>
-  <app-foot></app-foot>
   <div class="container">
     <div class="jumbotron">
       <h1>Welcome</h1>
