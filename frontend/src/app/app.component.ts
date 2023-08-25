@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RestService } from './rest.service';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 
 @Component({
@@ -10,7 +11,27 @@ import { RestService } from './rest.service';
 export class AppComponent {
   // title = 'portfolio-frontend';
   // stocks = [];
-  portfolio = [];
+  portfolio:any[] = [];
+  //[
+//   {
+//     "id": 4,
+//     "stock": {
+//       "id": 1,
+//       "symbol": "AMZN",
+//       "name": "Amazon.com, Inc"
+//     },
+//     "volume": 20
+//   },
+//   {
+//     "id": 6,
+//     "stock": {
+//       "id": 3,
+//       "symbol": "DOW",
+//       "name": "Dow Inc"
+//     },
+//     "volume": 50
+//   }
+// ]
   price = [];
   onePrice = [{'closePrice':0}]
   constructor(private rest:RestService){}
@@ -27,7 +48,14 @@ export class AppComponent {
   handleAllPortfolios(){
     return (received:any) => {
       this.portfolio = received
-      this.getOne()
+      this.getPrices();
+    }
+  }
+
+  getPrices(){
+    for (let i = 0; i < this.portfolio.length; i++) {
+      console.log(`i: ${i}`)
+      this.getOne(this.portfolio[i]['symbol'], i);
     }
   }
 
@@ -36,22 +64,24 @@ export class AppComponent {
       this.price = received
     }
   }
-  showOnePrice(){
+  showOnePrice(i:any){
     return (received:any)=>{
-      console.log(this.onePrice)
-      this.onePrice = received
+      console.log(received)
+      this.portfolio[i]['closePrice'] = received[0]['closePrice'];
+      console.log(this.portfolio)
     }
   }
 
-  getOne(){
+  getOne(ticker:any, i:any){
     // we call the typicode.getOnePhoto method
-    this.rest.getOnePrice(this.whichStock, this.startDate, this.startDate)
-    .subscribe(this.showOnePrice())
+    console.log(ticker)
+    this.rest.getOnePrice(ticker, this.startDate, this.startDate)
+    .subscribe(this.showOnePrice(i))
   }
 
   updatePrice(e:any){
     this.startDate = e;
-    this.getOne();
+    this.getPrices();
   }
 
 }

@@ -15,9 +15,9 @@
             <tr>
                 <td>{{item['stock']['symbol']}}</td>
                 <td>{{item['stock']['name']}}</td>
-                <td>{{onePrice[0]['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
+                <td>{{item['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
                 <td>{{item['volume'] | number:'1.0-0'}}</td>
-                <td>{{getRowSum(item['volume'], onePrice[0]['closePrice'])}}{{totalPrice| currency:'USD'}}</td>
+                <td>{{getRowSum(item['volume'], item['closePrice'])}}{{totalPrice| currency:'USD'}}</td>
             </tr>             
         </tbody>   
     </table>
