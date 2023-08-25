@@ -13,9 +13,10 @@
             <thead>
                 <th>Symbol</th> 
                 <th>Name</th> 
-                <th>closePrice</th> 
+                <th>Close Price</th> 
                 <th>Volume</th> 
                 <th>Total Worth</th> 
+                <th>Price Change</th>
             </thead>
             <tbody *ngFor="let item of portfolio" >
                 <tr>
@@ -24,34 +25,9 @@
                     <td>{{item['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
                     <td>{{item['volume'] | number:'1.0-0'}}</td>
                     <td>{{getRowSum(item['volume'], item['closePrice'])}}{{totalPrice| currency:'USD'}}</td>
+                    <td>{{item['priceChange'] | number:'1.2-2'}}</td>
                 </tr>             
             </tbody>   
         </table>
-    <!-- <table >
-        <thead>
-            <th>Portfolio_id</th>
-            <th>Stock_id</th> 
-            <th>Symbol</th> 
-            <th>Name</th> 
-            <th>openPrice</th> 
-            <th>closePrice</th> 
-            <th>Volume</th> 
-            <th>Date</th>               
-        </thead>
-        <tbody *ngFor="let item of portfolio; let p of price" >
-            <tr>
-                <td>{{item['id']}}</td>
-                <td>{{item['stock']['id']}}
-                </td>
-                <td>{{item['stock']['symbol']}}</td>
-                <td>{{item['stock']['name']}}</td>
-                <td>{{p['openPrice'] | number:'1.2-2' | currency:'USD'}}</td>
-                <td>{{p['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
-                <td>{{p['volume'] | number:'1.0-0'}}</td>
-                <td>{{p['recordDate'] | slice:0:10}}</td>
-                
-            </tr>             
-        </tbody>   
-    </table> -->
     </div>
 </div>

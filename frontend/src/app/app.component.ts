@@ -72,6 +72,29 @@ export class AppComponent {
     }
   }
 
+  showOnePriceChange(i:any){
+    return (received:any)=>{
+      console.log(received)
+      this.portfolio[i]['priceChange'] = received;
+      console.log(this.portfolio)
+    }
+  }
+
+
+  getOnePriceChange(ticker:any, i:any){
+    // we call the typicode.getOnePhoto method
+    console.log(ticker)
+    this.rest.getPriceChange(ticker, this.startDate, '2021-04-06')
+    .subscribe(this.showOnePriceChange(i))
+  }
+
+  getAllPriceChanges(){
+    for (let i = 0; i < this.portfolio.length; i++) {
+      console.log(`i: ${i}`)
+      this.getOnePriceChange(this.portfolio[i]['stock']['symbol'], i);
+    }
+  }
+
   getNetWorth() {
     this.rest.getNetWorth(this.startDate).subscribe(this.handleNetWorth())
   }
@@ -80,6 +103,7 @@ export class AppComponent {
     return (received:any) => {
       this.portfolio = received
       this.getPrices();
+      this.getAllPriceChanges();
     }
   }
 
@@ -114,6 +138,7 @@ export class AppComponent {
     this.startDate = e;
     this.getPrices();
     this.getNetWorth();
+    this.getAllPriceChanges();
   }
 
 }

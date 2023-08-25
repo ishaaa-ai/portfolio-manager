@@ -56,6 +56,19 @@ export class RestService {
       return new Observable()
     }
   }
+  
+  getPriceChange(whichStock='AMZN', startDate='2021-04-01', endDate='2021-04-01'){
+    const pChangeUrl = `${this.pricePerDateUrl}/${whichStock}/change?endDate=${endDate}T00%3A00%3A00&startDate=${startDate}T00%3A00%3A00`
+    try{
+      // this no need as this variable is not declared in class
+      console.log(pChangeUrl)
+      return this.http.get(pChangeUrl)
+      
+    }
+    catch(err){
+      return new Observable()
+    }
+  }
 
   getNetWorth(startDate='2021-04-01') {
     const getNetWorthUrl = `${this.netWorthUrl}?date=${startDate}T00%3A00%3A00`;
