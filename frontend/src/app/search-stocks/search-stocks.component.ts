@@ -18,9 +18,9 @@ export class SearchStocksComponent implements OnInit {
   constructor(private restService: RestService) { }
 
   getStockData() {
-    console.log(this.selectedStock)
-    console.log(this.selectedAction)
-    console.log(this.selectedQuantity)
+    // console.log(this.selectedStock)
+    // console.log(this.selectedAction)
+    // console.log(this.selectedQuantity)
 
     if (this.selectedAction == "Sell") {
       this.selectedQuantity = -1 * this.selectedQuantity
@@ -38,14 +38,14 @@ export class SearchStocksComponent implements OnInit {
         const new_volume = resp.volume + this.selectedQuantity;
         if (new_volume <= 0) {
           this.restService.deleteStockFromPortfolio(this.selectedStock).subscribe(() => {
-            console.log("Deleted stock from portfolio")
+            // console.log("Deleted stock from portfolio")
             alert("Do you want to sell all your stock?");
             this.outputMessage = "Deleted stock from portfolio"
             this.STOCK_EVENT.emit(this.outputMessage)
           })
         } else {
           this.restService.updateStockInPortfolio(this.selectedStock, new_volume).subscribe(() => {
-            console.log("Updated stock from portfolio")
+            // console.log("Updated stock from portfolio")
             this.outputMessage = "Updated stock from portfolio"
             this.STOCK_EVENT.emit(this.outputMessage)
           })
@@ -54,11 +54,11 @@ export class SearchStocksComponent implements OnInit {
       }, error => {
         // Stock doesn't exist in portfolio
         if (this.selectedAction == "Sell") {
-          console.log("You can't sell, nothing changed in portfolio")
+          // console.log("You can't sell, nothing changed in portfolio")
           this.outputMessage = "You can't sell, nothing changed in portfolio"
         } else if (this.selectedAction == "Buy") {
           this.restService.addNewStockInPortfolio(this.selectedStock, this.selectedQuantity).subscribe(()=>{
-            console.log("Added new stock in portfolio")
+            // console.log("Added new stock in portfolio")
             this.outputMessage = "Added new stock in portfolio"
             this.STOCK_EVENT.emit(this.outputMessage)
           })

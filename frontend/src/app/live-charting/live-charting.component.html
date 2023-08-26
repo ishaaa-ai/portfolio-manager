@@ -1,3 +1,23 @@
-<div class="chart-container">
-    <canvas  id="MyChart" >{{ chart }}</canvas>
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Net Worth</div>
+        <div class="panel-body">
+            <form #myForm='ngForm'>
+                <div class="input-group">
+                    <label for="start-date">Start Date: </label>
+                    <input type="date" id="start-date" name="start-date" [value]=startDate min="2021-01-01"
+                        max="2021-12-31" [(ngModel)]="startDate" required />
+                    <label for="end-date">End Date: </label>
+                    <input type="date" id="end-date" name="end-date" [value]=endDate min="2021-01-01" max="2021-12-31"
+                        [(ngModel)]="endDate" required />
+                    <button class="btn btn-default" type="button" 
+                        [disabled]="!!myForm.invalid" (click)="graphChart(startDate, endDate)">View</button>
+                </div>
+            </form>
+            <div class="chart-container">
+                <canvas id="MyChart">{{ chart }}</canvas>
+            </div>
+        </div>
+    </div>
 </div>
+

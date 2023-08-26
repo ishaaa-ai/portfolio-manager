@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { RestService } from '../rest.service';
 
@@ -9,45 +9,57 @@ import { RestService } from '../rest.service';
 })
 export class LiveChartingComponent implements OnInit {
   public chart: any;
-  // @Input() startDate: string = ''
-  // @Input() endDate: string = ''
+  @Input() startDate: string = ''
+  @Input() endDate: string = ''
+  @Input() portfolio: any
+  @Output() onClick = new EventEmitter<Object>()
 
   ngOnInit(): void {
-    this.createChart();
+    const startDate = "2021-12-08"
+    const endDate = "2021-12-28"
+    this.createChart()
+    this.graphChart(startDate, endDate);
   }
 
   constructor(private restService: RestService) { }
 
-  graphChart(labels: Array<String>, data: Array<String>) {
-    console.log(labels)
-    console.log(data)
+  createChart() {
     this.chart = new Chart("MyChart", {
       type: 'line', //this denotes tha type of chart
-
       data: {// values on X-Axis
-        labels: labels,
+        labels: [],
         datasets: [
           {
             label: "Net Worth",
-            data: data,
-            backgroundColor: 'blue'
+            data: [],
+            backgroundColor: 'black'
           }
         ]
       },
       options: {
-        aspectRatio: 2.5
+        plugins: {
+          legend: { display: false }
+        },
       }
-
     });
   }
 
-  createChart() {
-    const startDate = "2021-09-01"
-    const endDate = "2021-09-08"
+  updateChartData(chart: Chart, labels: Array<string>, data: Array<number>) {
+    chart.data.labels = labels
+    chart.data.datasets.forEach((dataset) => {
+      dataset.data.pop();
+    });
+
+    chart.data.datasets.forEach((dataset) => {
+      dataset.data = data;
+    });
+    chart.update();
+  }
+
+  graphChart(startDate: string, endDate: string) {
 
     this.restService.getAllPortfolioStocks().subscribe((resp: any) => {
       const stockInfo: { [key: string]: number } = {};
-
       for (const item of resp) {
         const ticker = item.stock.symbol
         const volume = item.volume
@@ -61,11 +73,10 @@ export class LiveChartingComponent implements OnInit {
               stockInfo[recordDate] = openPrice * volume;
             }
           }
-          const keysArray: string[] = Object.keys(stockInfo);
-          const valuesArray: string[] = Object.values(stockInfo).map(num => num.toString());
-          this.graphChart(keysArray, valuesArray)
+          let keysArray = Object.keys(stockInfo).map(date => date.split('T')[0]);;
+          let valuesArray = Object.values(stockInfo);
+          this.updateChartData(this.chart, keysArray, valuesArray)
         })
-
       }
     })
   }

@@ -48,7 +48,7 @@ export class RestService {
     const oneStockUrl = `${this.pricePerDateUrl}/${whichStock}/dates?endDate=${endDate}T00%3A00%3A00&startDate=${startDate}T00%3A00%3A00`
     try{
       // this no need as this variable is not declared in class
-      console.log(oneStockUrl)
+      // console.log(oneStockUrl)
       return this.http.get(oneStockUrl)
       
     }
@@ -60,7 +60,7 @@ export class RestService {
   getNetWorth(startDate='2021-04-01') {
     const getNetWorthUrl = `${this.netWorthUrl}?date=${startDate}T00%3A00%3A00`;
     try{
-      console.log(getNetWorthUrl)
+      // console.log(getNetWorthUrl)
       return this.http.get(getNetWorthUrl)
     }
     catch(err){
@@ -115,7 +115,6 @@ export class RestService {
   handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,

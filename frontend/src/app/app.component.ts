@@ -56,7 +56,7 @@ export class AppComponent {
   }
 
   handleStockUpdate(e:any) {
-    console.log(e)
+    // console.log(e)
     this.getPortfolio();
     this.getNetWorth();
   }
@@ -85,7 +85,7 @@ export class AppComponent {
 
   getPrices(){
     for (let i = 0; i < this.portfolio.length; i++) {
-      console.log(`i: ${i}`)
+      // console.log(`i: ${i}`)
       this.getOne(this.portfolio[i]['stock']['symbol'], i);
     }
   }
@@ -97,15 +97,15 @@ export class AppComponent {
   }
   showOnePrice(i:any){
     return (received:any)=>{
-      console.log(received)
+      // console.log(received)
       this.portfolio[i]['closePrice'] = received[0]['closePrice'];
-      console.log(this.portfolio)
+      // console.log(this.portfolio)
     }
   }
 
   getOne(ticker:any, i:any){
     // we call the typicode.getOnePhoto method
-    console.log(ticker)
+    // console.log(ticker)
     this.rest.getOnePrice(ticker, this.startDate, this.startDate)
     .subscribe(this.showOnePrice(i))
   }
@@ -115,5 +115,4 @@ export class AppComponent {
     this.getPrices();
     this.getNetWorth();
   }
-
 }
