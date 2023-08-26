@@ -48,8 +48,8 @@ export class RestService {
   }
   
   // retrieve one price change number between two dates as an object and return it 
-  getRestPriceChange(whichStock='AMZN', startDate='2021-04-01', endDate='2021-04-01'){
-    const pChangeUrl = `${this.pricePerDateUrl}/${whichStock}/change?endDate=${endDate}T00%3A00%3A00&startDate=${startDate}T00%3A00%3A00`
+  getRestPriceChange(whichStock='AMZN', startDate='2021-04-01'){
+    const pChangeUrl = `${this.pricePerDateUrl}/${whichStock}/changeToday?date=${startDate}T00%3A00%3A00`
     try{
       return this.http.get(pChangeUrl)
       

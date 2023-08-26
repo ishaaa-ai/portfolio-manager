@@ -9,6 +9,10 @@ import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  // handleAll functions return a object with what received
+  // get functions set all specific values to the table
+  // enable functions call rest functions to obtain API result
+  // set functions set one value to the table
   title = 'portfolio-frontend';
   stocks = [];
   portfolio:any[] = [];
@@ -38,9 +42,9 @@ export class AppComponent {
   startDate='2021-04-01'
   netWorth=0
   ngOnInit() {
-    this.getPortfolio()
+    this.getAllPortfolio()
 
-    this.getNetWorth()
+    this.getAllNetWorth()
 
     this.rest.getAllStocks()
       .subscribe( this.handleAllStocks() )
@@ -55,25 +59,26 @@ export class AppComponent {
   // made portfolio object update after buying selling stocks
   handleStockUpdate(e:any) {
     console.log(e)
-    this.getPortfolio();
-    this.getNetWorth();
+    this.getAllPortfolio();
+    this.getAllNetWorth();
   }
   
-
+  // set portfolio close price
+  // set portfolio price change
   handleAllPortfolios(){
     return (received:any) => {
       this.portfolio = received
-      this.getPrices();
+      this.getAllPrices();
       this.getAllPriceChanges();
     }
   }
-
-  handleNetWorth(){
+  // return networth object
+  handleAllNetWorth(){
     return (received:any) => {
       this.netWorth = received
     }
   }
-
+  // return price object
   handleAllPrices(){
     return (received:any) => {
       this.price = received
@@ -82,17 +87,17 @@ export class AppComponent {
 
   // loop through portfolio array and for each object
   // get one json object according to dates
-  // set profolio price change
-  getPrices(){
+  // set profolio close price
+  getAllPrices(){
     for (let i = 0; i < this.portfolio.length; i++) {
       console.log(`i: ${i}`)
-      this.handleShowClosePrice(this.portfolio[i]['stock']['symbol'], i);
+      this.enableOneClosePrice(this.portfolio[i]['stock']['symbol'], i);
     }
   }
 
   // enable back end get one price 
   // and invoke function to the portfolio
-  handleShowClosePrice(ticker:any, i:any){
+  enableOneClosePrice(ticker:any, i:any){
     this.rest.getRestOnePrice(ticker, this.startDate, this.startDate)
     .subscribe(this.setProfolioClosePrice(i))
   }
@@ -103,53 +108,48 @@ export class AppComponent {
     }
   }
 
+
+  // loop through portfolio array and for each object
+  // get one json object according to dates
+  // set profolio price change
   getAllPriceChanges(){
     for (let i = 0; i < this.portfolio.length; i++) {
       console.log(`i: ${i}`)
-      this.getOnePriceChange(this.portfolio[i]['stock']['symbol'], i);
+      this.enableOnePriceChange(this.portfolio[i]['stock']['symbol'], i);
     }
   }
 
-  getPortfolio(){
+  // obtain portfolio
+  getAllPortfolio(){
     this.rest.getRestAllPortfolios()
     .subscribe( this.handleAllPortfolios() )
   }
 
   
-
-  showOnePriceChange(i:any){
+  
+  setPortfolioPriceChange(i:any){
     return (received:any)=>{
-      console.log(received)
       this.portfolio[i]['priceChange'] = received;
-      console.log(this.portfolio)
     }
   }
 
-
-  getOnePriceChange(ticker:any, i:any){
-    // we call the typicode.getOnePhoto method
-    console.log(ticker)
-    this.rest.getRestPriceChange(ticker, this.startDate, '2021-04-06')
-    .subscribe(this.showOnePriceChange(i))
+  // enable pricechange value to portfolio i index 
+  enableOnePriceChange(ticker:any, i:any){
+    this.rest.getRestPriceChange(ticker, this.startDate)
+    .subscribe(this.setPortfolioPriceChange(i))
   }
 
   
-
-  getNetWorth() {
-    this.rest.getRestNetWorth(this.startDate).subscribe(this.handleNetWorth())
+  // set networth values to portfolio table 
+  getAllNetWorth() {
+    this.rest.getRestNetWorth(this.startDate).subscribe(this.handleAllNetWorth())
   }
-
   
-
-  
-  
-
-  
-
+  // update table when new input 
   updatePrice(e:any){
     this.startDate = e;
-    this.getPrices();
-    this.getNetWorth();
+    this.getAllPrices();
+    this.getAllNetWorth();
     this.getAllPriceChanges();
   }
 
