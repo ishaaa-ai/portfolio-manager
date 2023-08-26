@@ -85,13 +85,9 @@ export class AppComponent {
     }
   }
 
-  // loop through portfolio array and for each object
-  // get one json object according to dates
-  // set profolio close price
-  getAllPrices(){
-    for (let i = 0; i < this.portfolio.length; i++) {
-      console.log(`i: ${i}`)
-      this.enableOneClosePrice(this.portfolio[i]['stock']['symbol'], i);
+  setProfolioClosePrice(i:any){
+    return (received:any)=>{
+      this.portfolio[i]['closePrice'] = received[0]['closePrice'];
     }
   }
 
@@ -102,12 +98,28 @@ export class AppComponent {
     .subscribe(this.setProfolioClosePrice(i))
   }
 
-  setProfolioClosePrice(i:any){
-    return (received:any)=>{
-      this.portfolio[i]['closePrice'] = received[0]['closePrice'];
+  // loop through portfolio array and for each object
+  // get one json object according to dates
+  // set profolio close price
+  getAllPrices(){
+    for (let i = 0; i < this.portfolio.length; i++) {
+      console.log(`i: ${i}`)
+      this.enableOneClosePrice(this.portfolio[i]['stock']['symbol'], i);
     }
   }
 
+  
+  setPortfolioPriceChange(i:any){
+      return (received:any)=>{
+        this.portfolio[i]['priceChange'] = received;
+      }
+    }
+
+  // enable pricechange value to portfolio i index 
+  enableOnePriceChange(ticker:any, i:any){
+    this.rest.getRestPriceChange(ticker, this.startDate)
+    .subscribe(this.setPortfolioPriceChange(i))
+  }
 
   // loop through portfolio array and for each object
   // get one json object according to dates
@@ -126,24 +138,11 @@ export class AppComponent {
   }
 
   
-  
-  setPortfolioPriceChange(i:any){
-    return (received:any)=>{
-      this.portfolio[i]['priceChange'] = received;
-    }
-  }
-
-  // enable pricechange value to portfolio i index 
-  enableOnePriceChange(ticker:any, i:any){
-    this.rest.getRestPriceChange(ticker, this.startDate)
-    .subscribe(this.setPortfolioPriceChange(i))
-  }
-
-  
   // set networth values to portfolio table 
   getAllNetWorth() {
     this.rest.getRestNetWorth(this.startDate).subscribe(this.handleAllNetWorth())
   }
+  
   
   // update table when new input 
   updatePrice(e:any){
