@@ -19,5 +19,21 @@ export class PortfolioComponent {
 
   getRowSum(volume:any, price:any) {
     this.totalPrice = volume * price;
-}
+  }
+
+  getPercentChangeColor(value:any) {
+    if (value > 0) {
+      return {
+        color: 'green'
+      };
+    } else if (value < 0) {
+      return {
+        color: 'red'
+      };
+    } else {
+      return {
+        color: 'black'
+      }
+    }
+  }
 }

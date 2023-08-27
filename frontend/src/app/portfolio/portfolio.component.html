@@ -25,7 +25,8 @@
                     <td>{{item['closePrice'] | number:'1.2-2' | currency:'USD'}}</td>
                     <td>{{item['volume'] | number:'1.0-0'}}</td>
                     <td>{{getRowSum(item['volume'], item['closePrice'])}}{{totalPrice| currency:'USD'}}</td>
-                    <td>{{item['priceChange'] | number:'1.2-2'}}</td>
+                    <td [style]="getPercentChangeColor(item['priceChange'])">
+                        {{item['priceChange'] > 0 ? '+' : ''}}{{item['priceChange'] | number:'1.2-2'}}%</td>
                 </tr>             
             </tbody>   
         </table>
