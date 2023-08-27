@@ -7,12 +7,11 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class RestService {
-
+  // basic urls for the backend APIs
   portfoliosUrl = 'http://localhost:8080/api/portfolio'
   pricesUrl = 'http://localhost:8080/api/stock'
   pricePerDateUrl = 'http://localhost:8080/api/stock/ticker'
   netWorthUrl = 'http://localhost:8080/api/portfolio/total'
-
   stocksUrl = 'http://localhost:8080/api/stocks'
 
   constructor(private http: HttpClient) { }
@@ -26,7 +25,8 @@ export class RestService {
     }
   }
 
-  getAllPortfolios() {
+  // return a object from requested URLs containing all portfolio information
+  getRestAllPortfolios() {
     try {
       return this.http.get(this.portfoliosUrl)
     }
@@ -34,21 +34,11 @@ export class RestService {
       return new Observable()
     }
   }
-  getAllPrices() {
-    try {
-      return this.http.get(this.pricesUrl)
-    }
-    catch (err) {
-      return new Observable()
-    }
-  }
   
-  // get just one photo
-  getOnePrice(whichStock='AMZN', startDate='2021-04-01', endDate='2021-04-01'){
+  // retrieve one stock json information between two dates as an object and return it
+  getRestOnePrice(whichStock='AMZN', startDate='2021-04-01', endDate='2021-04-01'){
     const oneStockUrl = `${this.pricePerDateUrl}/${whichStock}/dates?endDate=${endDate}T00%3A00%3A00&startDate=${startDate}T00%3A00%3A00`
     try{
-      // this no need as this variable is not declared in class
-      // console.log(oneStockUrl)
       return this.http.get(oneStockUrl)
       
     }
@@ -56,11 +46,22 @@ export class RestService {
       return new Observable()
     }
   }
-
-  getNetWorth(startDate='2021-04-01') {
+  
+  // retrieve one price change number between two dates as an object and return it 
+  getRestPriceChange(whichStock='AMZN', startDate='2021-04-01'){
+    const pChangeUrl = `${this.pricePerDateUrl}/${whichStock}/changeToday?date=${startDate}T00%3A00%3A00`
+    try{
+      return this.http.get(pChangeUrl)
+      
+    }
+    catch(err){
+      return new Observable()
+    }
+  }
+  // retrieve one networth number between two dates as an object and return it
+  getRestNetWorth(startDate='2021-04-01') {
     const getNetWorthUrl = `${this.netWorthUrl}?date=${startDate}T00%3A00%3A00`;
     try{
-      // console.log(getNetWorthUrl)
       return this.http.get(getNetWorthUrl)
     }
     catch(err){

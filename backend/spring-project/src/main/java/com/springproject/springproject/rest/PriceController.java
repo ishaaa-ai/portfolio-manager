@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -48,7 +50,7 @@ public class PriceController {
                                                     @RequestParam("startDate") String startDate,
                                                    @RequestParam("endDate") String endDate) {
         logger.info("Get request for " + symbol + " stock prices between " + startDate + " and " + endDate);
-        return service.getPriceByTickerAndDate(symbol, startDate, endDate);
+        return service.getPriceByTickerAndDate(symbol, LocalDateTime.parse(startDate), LocalDateTime.parse(endDate));
     }
 
     @GetMapping(path="/ticker/{symbol}/change")
@@ -59,4 +61,10 @@ public class PriceController {
         return service.getPercentChange(symbol, startDate, endDate);
     }
 
+    @GetMapping(path="/ticker/{symbol}/changeToday")
+    public Double findPercentChangeToday(@PathVariable("symbol") String symbol,
+                                    @RequestParam("date") String todayDate) {
+        logger.info("Get request for " + symbol + " percent change between " + todayDate + " and previous day");
+        return service.getPercentChangeToday(symbol, todayDate);
+    }
 }

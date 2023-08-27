@@ -27,20 +27,30 @@ public class PriceServiceImpl implements PriceService{
 
     public List<Price> getPriceByTicker(String symbol) { return (List<Price>) repository.findAllBySymbol(symbol); }
 
-    public List<Price> getPriceByTickerAndDate(String symbol, String startDate, String endDate) {
+    public List<Price> getPriceByTickerAndDate(String symbol, LocalDateTime startDate, LocalDateTime endDate) {
         return (List<Price>) repository.findByRecordDateAndSymbol(symbol,
-                LocalDateTime.parse(startDate), LocalDateTime.parse(endDate));
+                startDate,endDate);
     }
+
     public List<Price> getPriceByDate(String startDate, String endDate) {
         return (List<Price>) repository.findByRecordDateBetween(LocalDateTime.parse(startDate), LocalDateTime.parse(endDate));
     };
 
     public Double getPercentChange(String symbol, String startDate, String endDate) {
-        List<Price> prices = this.getPriceByTickerAndDate(symbol, startDate, endDate);
+        List<Price> prices = this.getPriceByTickerAndDate(symbol, LocalDateTime.parse(startDate), LocalDateTime.parse(endDate));
+        return this.calculatePercentChange(prices);
+    }
+
+    private Double calculatePercentChange(List<Price> prices){
         double original = prices.get(0).getClosePrice();
         double latest = prices.get(prices.size() - 1).getClosePrice();
         double change = (latest - original) / original * 100;
         return Math.round(change * 100.0) / 100.0;
     }
 
+    public Double getPercentChangeToday(String symbol, String todayDate) {
+        LocalDateTime yesterdayDate = LocalDateTime.parse(todayDate).minusDays(1);
+        List<Price> prices = this.getPriceByTickerAndDate(symbol, yesterdayDate, LocalDateTime.parse(todayDate));
+        return this.calculatePercentChange(prices);
+    }
 }
