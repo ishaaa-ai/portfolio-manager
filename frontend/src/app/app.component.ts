@@ -39,7 +39,7 @@ export class AppComponent {
   price = [];
   onePrice = [{'closePrice':0}]
   constructor(private rest:RestService){}
-  startDate='2021-04-01'
+  startDate='2021-12-28'
   netWorth=0
   ngOnInit() {
     this.getAllPortfolio()

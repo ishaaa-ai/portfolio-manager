@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChange } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { RestService } from '../rest.service';
 
@@ -9,19 +9,22 @@ import { RestService } from '../rest.service';
 })
 export class LiveChartingComponent implements OnInit {
   public chart: any;
-  @Input() startDate: string = ''
-  @Input() endDate: string = ''
+  @Input() startDate: string = "2021-12-08"
+  @Input() endDate: string = "2021-12-28"
   @Input() portfolio: any
   @Output() onClick = new EventEmitter<Object>()
 
   ngOnInit(): void {
-    const startDate = "2021-12-08"
-    const endDate = "2021-12-28"
     this.createChart()
-    this.graphChart(startDate, endDate);
+    this.graphChart(this.startDate, this.endDate);
   }
 
   constructor(private restService: RestService) { }
+
+  ngOnChanges(changes: { [property: string]: SimpleChange }) {
+    // Extract changes to the input property by its name
+    this.graphChart(this.startDate, this.endDate);
+  }
 
   createChart() {
     this.chart = new Chart("MyChart", {
