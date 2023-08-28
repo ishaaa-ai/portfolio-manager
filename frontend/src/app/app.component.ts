@@ -41,6 +41,10 @@ export class AppComponent {
   constructor(private rest:RestService){}
   startDate='2021-12-28'
   netWorth=0
+
+  searchHistory: Array<any> = []
+  showHistory:boolean = false
+
   ngOnInit() {
     this.getAllPortfolio()
 

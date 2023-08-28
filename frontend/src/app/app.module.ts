@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { SearchStocksFormComponent } from './search-stocks-form/search-stocks-form.component';
 import { SearchStocksComponent } from './search-stocks/search-stocks.component';
+import { SearchHistoryComponent } from './search-history/search-history.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SearchStocksComponent } from './search-stocks/search-stocks.component';
     LiveChartingComponent,
     PortfolioComponent,
     SearchStocksFormComponent,
-    SearchStocksComponent
+    SearchStocksComponent,
+    SearchHistoryComponent
   ],
   imports: [
     BrowserModule,

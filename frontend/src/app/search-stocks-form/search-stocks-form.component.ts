@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class SearchStocksFormComponent {
   @Input() data:any
+  @Input() searchHistory:Array<any> = []
   stock: string = ''
   action: string = ""
   actions: Array<String> = ["Buy", "Sell"]
@@ -18,7 +19,7 @@ export class SearchStocksFormComponent {
     // // set the status object based on received data from the child
     // this.statusObj = evt
     // // also store the paramters in our history array
-    // this.searchHistory.push({category:this.category, num:this.num, ts:this.statusObj.timestamp})
+    this.searchHistory.unshift({stock:this.stock, action:this.action, quantity: this.quantity, ts:evt.timestamp})
   }
 
 }
