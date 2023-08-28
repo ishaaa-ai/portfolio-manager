@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">User History</div>
+        <div class="panel-body">
+            <ul class="list-group list-group-flush">
+                <li *ngFor='let item of searchHistory' class="list-group-item"> {{item.action == "Buy"? "Bought" : "Sold"}} {{item.quantity}} shares of {{item.stock}} on {{item.ts |date:'MM/dd/yy'}} at {{item.ts |date:"hh:mm:ss a"}}</li>
+              </ul>
+        </div>
+    </div>
+</div>

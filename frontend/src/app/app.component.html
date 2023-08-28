@@ -10,7 +10,7 @@
 
   <div fxLayout="row" class="d-flex align-items-center">
     <div fxFlex="30%" >
-      <app-search-stocks-form (notifyApp)="handleStockUpdate($event)" [data]="stocks"></app-search-stocks-form>
+      <app-search-stocks-form (notifyApp)="handleStockUpdate($event)" [data]="stocks" [searchHistory]="searchHistory"></app-search-stocks-form>
       
     </div>
     <div fxFlex="70%">
@@ -24,6 +24,11 @@
       <app-live-charting [portfolio]="portfolio"></app-live-charting>
     </div>
   </div>
-  
-</body>
+
+  <div fxLayout="row" fxLayoutGap="16px">
+    <div fxFlex="100%">
+      <app-search-history [hidden]='searchHistory.length==0' [searchHistory]="searchHistory"></app-search-history>
+    </div>
+  </div>
+  </body>
 </html>
