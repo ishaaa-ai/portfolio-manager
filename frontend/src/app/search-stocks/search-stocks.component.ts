@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RestService } from '../rest.service';
+import { StatusObj } from '../statusObj/statusObj';
 
 @Component({
   selector: 'app-search-stocks',
@@ -13,7 +14,8 @@ export class SearchStocksComponent implements OnInit {
   @Input() selectedQuantity: number = 0
   @Input() disabled: boolean = true;
   @Output() STOCK_EVENT = new EventEmitter<Object>()
-  outputMessage = "";
+  outputMessage=""
+  statusObj: StatusObj = new StatusObj('Received OK')
 
   constructor(private restService: RestService) { }
 
@@ -43,17 +45,22 @@ export class SearchStocksComponent implements OnInit {
             this.restService.deleteStockFromPortfolio(this.selectedStock).subscribe(() => {
               // console.log("Deleted stock from portfolio")
               this.outputMessage = `All ${this.selectedStock} shares sold`
-              this.STOCK_EVENT.emit(this.outputMessage)
+              this.statusObj.status = this.outputMessage
+              this.statusObj.amount = resp.volume
+              this.statusObj.timestamp = new Date()
+              this.STOCK_EVENT.emit(this.statusObj)
             })
           } else {
             this.outputMessage = `Sale of ${this.selectedStock} cancelled`
-            this.STOCK_EVENT.emit(this.outputMessage)
           }
         } else {
           this.restService.updateStockInPortfolio(this.selectedStock, new_volume).subscribe(() => {
             // console.log("Updated stock from portfolio")
             this.outputMessage = "Updated stock from portfolio"
-            this.STOCK_EVENT.emit(this.outputMessage)
+            this.statusObj.status = this.outputMessage
+            this.statusObj.amount = Math.abs(selectedQuantity)
+            this.statusObj.timestamp = new Date()
+            this.STOCK_EVENT.emit(this.statusObj)
           })
         }
         
@@ -66,7 +73,10 @@ export class SearchStocksComponent implements OnInit {
           this.restService.addNewStockInPortfolio(this.selectedStock, this.selectedQuantity).subscribe(()=>{
             // console.log("Added new stock in portfolio")
             this.outputMessage = "Added new stock in portfolio"
-            this.STOCK_EVENT.emit(this.outputMessage)
+            this.statusObj.status = this.outputMessage
+            this.statusObj.amount = Math.abs(selectedQuantity)
+            this.statusObj.timestamp = new Date()
+            this.STOCK_EVENT.emit(this.statusObj)
           })
         }
       }
