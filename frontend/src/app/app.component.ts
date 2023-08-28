@@ -43,7 +43,6 @@ export class AppComponent {
   netWorth=0
 
   searchHistory: Array<any> = []
-  showHistory:boolean = false
 
   ngOnInit() {
     this.getAllPortfolio()
