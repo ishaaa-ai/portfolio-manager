@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">Top 3 Stocks</div>
+        <div class="panel-body">
+            <form #myForm='ngForm'>
+                <div class="input-group">
+                    <label for="portfolio-date">Date: </label>
+                    <input type="date" id="portfolio-date" name="portfolio-date" [value]=startDate min="2021-01-01"
+                        max="2021-12-31" [(ngModel)]="startDate" required />
+                    <button class="btn btn-default" type="button" (click)="getTopList(startDate)"
+                        [disabled]="!!myForm.invalid">View</button>
+                </div>
+                <label>Overall Gains:</label>
+                <ul>
+                    <li *ngFor='let item of gains' class="list-group-item"> {{item[0]}}: <span [style]="getPercentChangeColor(item[1])">{{item[1] > 0 ? '+' : ''}}{{item[1]}}</span> </li>
+                </ul>
+                <label>Overall Losses:</label>
+                <ul>
+                    <li *ngFor='let item of losses' class="list-group-item"> {{item[0]}}: <span [style]="getPercentChangeColor(item[1])">{{item[1] > 0 ? '+' : ''}}{{item[1]}}</span>  </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

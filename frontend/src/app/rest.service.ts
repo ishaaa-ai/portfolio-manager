@@ -77,6 +77,14 @@ export class RestService {
     );
   }
 
+  getStockPercentChangeToday(ticker:string, startDate: string) {
+    const getStockPercentChangeToday = `http://localhost:8080/api/stock/ticker/${ticker}/changeToday?date=${startDate}T00%3A00%3A00`
+    return this.http.get(getStockPercentChangeToday).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+
   addNewStockInPortfolio(ticker: string, volume: number) {
     const addNewStockInPortfolioUrl = `http://localhost:8080/api/portfolio/ticker/${ticker}?volume=${volume}`
     return this.http.post(addNewStockInPortfolioUrl, {}).pipe(
