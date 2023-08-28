@@ -13,6 +13,7 @@ import { SearchStocksFormComponent } from './search-stocks-form/search-stocks-fo
 import { SearchStocksComponent } from './search-stocks/search-stocks.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SearchHistoryComponent } from './search-history/search-history.component';
+import { TopListComponent } from './top-list/top-list.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { SearchHistoryComponent } from './search-history/search-history.componen
     PortfolioComponent,
     SearchStocksFormComponent,
     SearchStocksComponent,
-    SearchHistoryComponent
+    SearchHistoryComponent,
+    TopListComponent
   ],
   imports: [
     BrowserModule,
