@@ -1,6 +1,10 @@
+
 <section>
     <button (click)='getStockData()' [disabled]="disabled" class="btn btn-default">Go</button>
+
+
 </section>
+
 <div *ngIf="outputMessage" class="alert alert-info" role="alert">
     <label>{{outputMessage}}</label>
 </div>

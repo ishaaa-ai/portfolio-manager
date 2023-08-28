@@ -11,4 +11,13 @@ table, td, th {
   td, th {
     text-align: center;
   }
+
+
+
+  .d-flex {
+    margin-left: 9%;
+    margin-right: 9%;
+  }
+  
+
   

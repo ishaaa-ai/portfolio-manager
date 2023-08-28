@@ -7,9 +7,23 @@
 </head>
 <body>
   <app-head></app-head>
-  <app-search-stocks-form (notifyApp)="handleStockUpdate($event)" [data]="stocks"></app-search-stocks-form>
-  <app-portfolio [portfolio]=portfolio [onePrice]="onePrice" [startDate]="startDate" (onClick)="updatePrice($event)"
-  [netWorth]="netWorth"></app-portfolio>
-  <app-live-charting [portfolio]="portfolio"></app-live-charting>
+
+  <div fxLayout="row" class="d-flex align-items-center">
+    <div fxFlex="30%" >
+      <app-search-stocks-form (notifyApp)="handleStockUpdate($event)" [data]="stocks"></app-search-stocks-form>
+      
+    </div>
+    <div fxFlex="70%">
+      <app-portfolio [portfolio]=portfolio [onePrice]="onePrice" [startDate]="startDate" (onClick)="updatePrice($event)"
+        [netWorth]="netWorth"></app-portfolio>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="16px">
+    <div fxFlex="100%">
+      <app-live-charting [portfolio]="portfolio"></app-live-charting>
+    </div>
+  </div>
+  
 </body>
 </html>
