@@ -9,9 +9,10 @@ input[type=number] {
 }
 
 select, input {
-    width: auto;
+    width: 100%;
 }
 
 .container {
     width: auto;
+    padding:0 20px 0 0;
 }

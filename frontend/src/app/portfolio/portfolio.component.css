@@ -16,4 +16,6 @@ input {
 
 .container {
   width: auto;
+  padding:0;
+
 }

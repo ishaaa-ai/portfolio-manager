@@ -8,12 +8,12 @@
 <body>
   <app-head></app-head>
 
-  <div fxLayout="row" class="d-flex align-items-center">
-    <div fxFlex="30%" >
+  <div fxLayout="row" class="container">
+    <div fxFlex="3 0 auto" >
       <app-search-stocks-form (notifyApp)="handleStockUpdate($event)" [data]="stocks" [searchHistory]="searchHistory"></app-search-stocks-form>
       
     </div>
-    <div fxFlex="70%">
+    <div fxFlex="7 0 auto">
       <app-portfolio [portfolio]=portfolio [onePrice]="onePrice" [startDate]="startDate" (onClick)="updatePrice($event)"
         [netWorth]="netWorth"></app-portfolio>
     </div>
