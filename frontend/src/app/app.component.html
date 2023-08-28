@@ -11,6 +11,6 @@
   <app-portfolio [portfolio]=portfolio [onePrice]="onePrice" [startDate]="startDate" (onClick)="updatePrice($event)"
   [netWorth]="netWorth"></app-portfolio>
   <app-live-charting [portfolio]="portfolio"></app-live-charting>
-  <app-search-history [searchHistory]="searchHistory"></app-search-history>
+  <app-search-history [hidden]='searchHistory.length==0' [searchHistory]="searchHistory"></app-search-history>
 </body>
 </html>
