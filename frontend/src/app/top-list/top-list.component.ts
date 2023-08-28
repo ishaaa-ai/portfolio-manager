@@ -8,7 +8,7 @@ import { RestService } from '../rest.service';
   styleUrls: ['./top-list.component.css']
 })
 export class TopListComponent implements OnInit {
-  @Input() startDate: any
+  @Input() startDate: string = "2021-12-28"
   @Input() gains: Array<any> = []
   @Input() losses: Array<any> = []
   @Output() onClick = new EventEmitter();
