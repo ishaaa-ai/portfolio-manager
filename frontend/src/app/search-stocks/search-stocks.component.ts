@@ -22,8 +22,10 @@ export class SearchStocksComponent implements OnInit {
     // console.log(this.selectedAction)
     // console.log(this.selectedQuantity)
 
+    let selectedQuantity = this.selectedQuantity;
+
     if (this.selectedAction == "Sell") {
-      this.selectedQuantity = -1 * this.selectedQuantity
+      selectedQuantity = -1 * selectedQuantity
     }
 
     // get by stock ticker to see the current volume
@@ -35,14 +37,18 @@ export class SearchStocksComponent implements OnInit {
     // otherwise: set volume = new volume
     this.restService.getPortfolioStockByTicker(this.selectedStock).subscribe(
       (resp: any) => {
-        const new_volume = resp.volume + this.selectedQuantity;
+        const new_volume = resp.volume + selectedQuantity;
         if (new_volume <= 0) {
-          this.restService.deleteStockFromPortfolio(this.selectedStock).subscribe(() => {
-            // console.log("Deleted stock from portfolio")
-            alert("Do you want to sell all your stock?");
-            this.outputMessage = "Deleted stock from portfolio"
+          if (confirm(`You entered an amount greater or equal to your currently owned stock. Do you want to sell all of your ${this.selectedStock} shares?`)) {
+            this.restService.deleteStockFromPortfolio(this.selectedStock).subscribe(() => {
+              // console.log("Deleted stock from portfolio")
+              this.outputMessage = `All ${this.selectedStock} shares sold`
+              this.STOCK_EVENT.emit(this.outputMessage)
+            })
+          } else {
+            this.outputMessage = `Sale of ${this.selectedStock} cancelled`
             this.STOCK_EVENT.emit(this.outputMessage)
-          })
+          }
         } else {
           this.restService.updateStockInPortfolio(this.selectedStock, new_volume).subscribe(() => {
             // console.log("Updated stock from portfolio")
@@ -55,7 +61,7 @@ export class SearchStocksComponent implements OnInit {
         // Stock doesn't exist in portfolio
         if (this.selectedAction == "Sell") {
           // console.log("You can't sell, nothing changed in portfolio")
-          this.outputMessage = "You can't sell, nothing changed in portfolio"
+          this.outputMessage = "You can't sell this stock because you do not own it, nothing changed in portfolio"
         } else if (this.selectedAction == "Buy") {
           this.restService.addNewStockInPortfolio(this.selectedStock, this.selectedQuantity).subscribe(()=>{
             // console.log("Added new stock in portfolio")
