@@ -14,6 +14,7 @@ import { SearchStocksComponent } from './search-stocks/search-stocks.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SearchHistoryComponent } from './search-history/search-history.component';
 import { TopListComponent } from './top-list/top-list.component';
+import { FakeNewsComponent } from './fake-news/fake-news.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { TopListComponent } from './top-list/top-list.component';
     SearchStocksFormComponent,
     SearchStocksComponent,
     SearchHistoryComponent,
-    TopListComponent
+    TopListComponent,
+    FakeNewsComponent
   ],
   imports: [
     BrowserModule,
