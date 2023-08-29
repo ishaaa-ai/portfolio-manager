@@ -4,3 +4,9 @@ input {
     border-color:gray;
     border-radius: 5%;
   }
+
+  .container {
+    width: inherit;
+    padding-left: inherit;
+    padding-right: inherit;
+  }

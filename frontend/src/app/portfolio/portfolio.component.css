@@ -15,7 +15,7 @@ input {
 }
 
 .container {
-  width: auto;
-  padding:0;
-
+  width: inherit;
+  padding-left: inherit;
+  padding-right: inherit;
 }
