@@ -11,7 +11,7 @@
 	<properties>
 		<java.version>11</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>com.conygre.spring.boot.AppConfig</start-class>
+		<start-class>com.springproject.springproject.AppConfig</start-class>
 	</properties>
 
 	<parent>
