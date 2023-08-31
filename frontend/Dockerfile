@@ -4,7 +4,7 @@ FROM node:lts-alpine AS build
 #### make the 'app' folder the current working directory
 WORKDIR ./src/app
 
-RUN pwd && ls
+#RUN pwd && ls
 
 #### copy both 'package.json' and 'package-lock.json' (if available)
 COPY package*.json ./
@@ -23,9 +23,9 @@ COPY . .
 #### generate build --prod
 RUN npm run build
 
-RUN pwd
+#RUN pwd
 
-RUN ls -laR
+#RUN ls -laR
 
 ### STAGE 2: Run ###
 FROM nginxinc/nginx-unprivileged
@@ -36,7 +36,7 @@ FROM nginxinc/nginx-unprivileged
 #### copy artifact build from the 'build environment'
 COPY --from=build ./src/app/dist/portfolio-frontend/ /usr/share/nginx/html
 
-RUN ls -laR
+#RUN ls -laR
 
 #### don't know what this is, but seems cool and techy
 CMD ["nginx", "-g", "daemon off;"]
