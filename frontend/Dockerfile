@@ -38,5 +38,4 @@ COPY --from=build ./src/app/dist/portfolio-frontend/ /usr/share/nginx/html
 
 #RUN ls -laR
 
-#### don't know what this is, but seems cool and techy
-CMD ["nginx", "-g", "daemon off;"]
+EXPOSE 80
