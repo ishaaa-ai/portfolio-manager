@@ -38,4 +38,4 @@ COPY --from=build ./src/app/dist/portfolio-frontend/ /usr/share/nginx/html
 
 #RUN ls -laR
 
-EXPOSE 80
+EXPOSE 3000 80
