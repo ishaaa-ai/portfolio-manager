@@ -31,7 +31,7 @@ RUN npm run build
 FROM nginxinc/nginx-unprivileged
 
 #### copy nginx conf
-#COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
 
 #### copy artifact build from the 'build environment'
 COPY --from=build ./src/app/dist/portfolio-frontend/ /usr/share/nginx/html
@@ -39,3 +39,5 @@ COPY --from=build ./src/app/dist/portfolio-frontend/ /usr/share/nginx/html
 #RUN ls -laR
 
 EXPOSE 3000 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
