@@ -23,6 +23,10 @@ COPY . .
 #### generate build --prod
 RUN npm run build
 
+RUN pwd
+
+RUN ls -laR
+
 ### STAGE 2: Run ###
 FROM nginxinc/nginx-unprivileged
 
