@@ -1,7 +1,5 @@
-drop database portfolio;
 
-CREATE DATABASE IF NOT EXISTS portfolio;
-use portfolio;
+use sampledb;
 CREATE TABLE stock (id int primary key auto_increment, symbol varchar(10) NOT NULL, full_name varchar(60),
 			UNIQUE KEY (symbol));
             

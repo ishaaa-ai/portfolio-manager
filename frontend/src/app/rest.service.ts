@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
-
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
+
+  serverURL = environment.ANGULAR_APP_SERVER_URL;
+
   // basic urls for the backend APIs
-  portfoliosUrl = 'http://localhost:8080/api/portfolio'
-  pricesUrl = 'http://localhost:8080/api/stock'
-  pricePerDateUrl = 'http://localhost:8080/api/stock/ticker'
-  netWorthUrl = 'http://localhost:8080/api/portfolio/total'
-  stocksUrl = 'http://localhost:8080/api/stocks'
+  portfoliosUrl = this.serverURL + '/api/portfolio'
+  pricesUrl = this.serverURL + '/api/stock'
+  pricePerDateUrl = this.serverURL + '/api/stock/ticker'
+  netWorthUrl = this.serverURL + '/api/portfolio/total'
+  stocksUrl = this.serverURL + '/api/stocks'
 
   constructor(private http: HttpClient) { }
 
@@ -71,14 +74,14 @@ export class RestService {
 
 
   getPortfolioStockByTicker(ticker: string) {
-    const portfolioStockByTickerUrl = `http://localhost:8080/api/portfolio/${ticker}`
+    const portfolioStockByTickerUrl = this.serverURL + `/api/portfolio/${ticker}`
     return this.http.get(portfolioStockByTickerUrl).pipe(
       catchError(this.handleError)
     );
   }
 
   getStockPercentChangeToday(ticker:string, startDate: string) {
-    const getStockPercentChangeToday = `http://localhost:8080/api/stock/ticker/${ticker}/changeToday?date=${startDate}T00%3A00%3A00`
+    const getStockPercentChangeToday = this.serverURL + `/api/stock/ticker/${ticker}/changeToday?date=${startDate}T00%3A00%3A00`
     return this.http.get(getStockPercentChangeToday).pipe(
       catchError(this.handleError)
     );
@@ -86,35 +89,35 @@ export class RestService {
 
 
   addNewStockInPortfolio(ticker: string, volume: number) {
-    const addNewStockInPortfolioUrl = `http://localhost:8080/api/portfolio/ticker/${ticker}?volume=${volume}`
+    const addNewStockInPortfolioUrl = this.serverURL + `/api/portfolio/ticker/${ticker}?volume=${volume}`
     return this.http.post(addNewStockInPortfolioUrl, {}).pipe(
       catchError(this.handleError)
     );
   }
 
   updateStockInPortfolio(ticker: string, new_volume: number) {
-    const updateStockInPortfolioUrl = `http://localhost:8080/api/portfolio/ticker/${ticker}?volume=${new_volume}`
+    const updateStockInPortfolioUrl = this.serverURL + `/api/portfolio/ticker/${ticker}?volume=${new_volume}`
     return this.http.put(updateStockInPortfolioUrl, {}).pipe(
       catchError(this.handleError)
     );
   }
 
   deleteStockFromPortfolio(ticker: string) {
-    const deleteStockFromPortfolioUrl = `http://localhost:8080/api/portfolio/ticker/${ticker}`
+    const deleteStockFromPortfolioUrl = this.serverURL + `/api/portfolio/ticker/${ticker}`
     return this.http.delete(deleteStockFromPortfolioUrl).pipe(
       catchError(this.handleError)
     );
   }
 
   getAllPortfolioStocks() {
-    const porfolioStocksUrl = `http://localhost:8080/api/portfolio`
+    const porfolioStocksUrl = this.serverURL + `/api/portfolio`
     return this.http.get(porfolioStocksUrl).pipe(
       catchError(this.handleError)
     );
   }
 
   getStockPricesByTickerBetweenDates(ticker: string, startDate: string, endDate: string) {
-    const getStockPricesByTickerBetweenDatesUrl = `http://localhost:8080/api/stock/ticker/${ticker}/dates?startDate=${startDate}T00%3A00%3A00&endDate=${endDate}T00%3A00%3A00`
+    const getStockPricesByTickerBetweenDatesUrl = this.serverURL + `/api/stock/ticker/${ticker}/dates?startDate=${startDate}T00%3A00%3A00&endDate=${endDate}T00%3A00%3A00`
     return this.http.get(getStockPricesByTickerBetweenDatesUrl).pipe(
       catchError(this.handleError)
     );
