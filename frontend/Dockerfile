@@ -1,5 +1,5 @@
 ### STAGE 1: Build ###
-FROM node:lts-alpine AS build
+FROM node:latest AS build
 
 #### make the 'app' folder the current working directory
 WORKDIR ./src/app
@@ -28,10 +28,10 @@ RUN npm run build
 #RUN ls -laR
 
 ### STAGE 2: Run ###
-FROM nginxinc/nginx-unprivileged
+FROM nginx:latest
 
 #### copy nginx conf
-COPY ./nginx.conf /etc/nginx/nginx.conf
+#COPY ./nginx.conf /etc/nginx/nginx.conf
 
 #### copy artifact build from the 'build environment'
 COPY --from=build ./src/app/dist/portfolio-frontend/ /usr/share/nginx/html
